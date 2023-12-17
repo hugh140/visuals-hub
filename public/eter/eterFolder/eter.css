@@ -1,0 +1,8 @@
+:root {
+  --background-color: white;
+  --audiocontrol-background: rgb(187, 187, 187);
+  --audiocontrol-bar: #303030;
+
+  --timeindicator-text: white;
+  --timeindicator-background: #303030;
+}
