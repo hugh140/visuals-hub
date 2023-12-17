@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ónix °</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" href="#" />
+  </head>
+  <body>
+    <div id="flash-warning">
+      Contiene luces intermitentes, verlo con su propia precaución.
+    </div>
+
+    <div class="button">
+      <button onclick="play()">Reproducir: Ónix</button>
+    </div>
+    <audio id="audio" src="cancion.mp3"></audio>
+    <audio id="audio2"></audio>
+    <canvas id="canvas-script"></canvas>
+
+    <form>
+      <div class="input">
+        <input
+          type="file"
+          name="file"
+          accept="audio/*"
+          onchange="cambiarMusica()"
+        />
+        <div id="info"></div>
+      </div>
+    </form>
+
+    <script src="mouseMove.js"></script>
+    <script src="figures.js"></script>
+    <script src="audio.js"></script>
+    <script id="canvasScript"></script>
+
+    <script>
+      let canvasScript = document.getElementById("canvasScript");
+
+      function play() {
+        hideCursorTime()
+        
+        document.querySelector("button").style.visibility = "hidden";
+        document.querySelector("input").style.visibility = "hidden";
+        document.getElementById("info").style.visibility = "hidden";
+        document.getElementById("flash-warning").style.visibility = "hidden";
+        canvasScript.src = "canvas-scr.js";
+
+        let audios = document.querySelectorAll("audio");
+        audios.forEach((audio) => {
+          audio.play();
+        });
+
+      }
+
+      function cambiarMusica() {
+        let boton = document.querySelector("button");
+        let info = document.getElementById("info");
+        boton.disabled = true;
+
+        try {
+          info.innerHTML = "Subiendo canción/audio...";
+
+          let musica = document.querySelector("input").files[0];
+          let musicaURL = URL.createObjectURL(musica);
+
+          document.querySelector("button").innerHTML =
+            "Reproducir: " + musica.name;
+          document.getElementById("audio").setAttribute("src", musicaURL);
+
+          boton.disabled = false;
+          info.innerHTML = "Se ha subido correctamente";
+        } catch (error) {
+          info.innerHTML = "Ha ocurrido un error: " + error;
+          console.log(error);
+        }
+      }
+    </script>
+  </body>
+</html>
